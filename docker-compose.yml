@@ -1,0 +1,21 @@
+version: "3.0"
+services:
+  rdbm:
+    image: mariadb:10.3.16
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_USER: "mortal"
+      MYSQL_PASSWORD: "kombat"
+    volumes:
+      - db:/var/lib/mysql
+  phpmyadmin:
+    image: phpmyadmin:5.0.4
+    ports: 
+      - "8080:80"
+    environment:
+      - MYSQL_ROOT_PASSWORD=kombat
+      - PMA_ARBITRARY=1
+    depends_on:
+      - rdbm
+volumes:
+  db:
